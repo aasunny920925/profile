@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>尤時晴 | Field Notes Portfolio v2</title>
+    <meta name="description" content="尤時晴個人網站：設計、攝影、田野觀察與地方敘事。" />
+    <meta name="color-scheme" content="light dark" />
+    <meta property="og:title" content="尤時晴 | Field Notes Portfolio v2" />
+    <meta property="og:description" content="復古實驗感個人網站：田野、設計、影像與內容敘事。" />
+    <meta property="og:type" content="website" />
+    <style>
+      :root {
+        --bg: #f4f3ef;
+        --ink: #121212;
+        --paper: #ffffff;
+        --line: #151515;
+        --muted: #666;
+        --blue: #163eff;
+        --max: 1280px;
+        --mono: "IBM Plex Mono", "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0e0e11;
+          --ink: #f2f2f2;
+          --paper: #18181c;
+          --line: #ececec;
+          --muted: #b4b4b4;
+          --blue: #8ca0ff;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--mono);
+        line-height: 1.4;
+      }
+
+      body {
+        cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='2.8' fill='%23121212'/%3E%3Cpath d='M12 1v6M12 17v6M1 12h6M17 12h6' stroke='%23121212' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E")
+            12 12,
+          auto;
+      }
+
+      a,
+      button {
+        cursor: pointer;
+      }
+
+      .skip {
+        position: absolute;
+        left: -9999px;
+      }
+
+      .skip:focus {
+        left: 10px;
+        top: 10px;
+        z-index: 1000;
+        padding: 8px 10px;
+        border: 1px solid var(--line);
+        background: var(--paper);
+      }
+
+      .layout {
+        max-width: var(--max);
+        margin: 0 auto;
+        padding: 14px;
+      }
+
+      .bar {
+        border: 1px solid var(--line);
+        background: var(--paper);
+        border-radius: 8px;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+
+      .ticker {
+        display: inline-block;
+        min-width: 200%;
+        padding: 8px 0;
+        animation: marquee 18s linear infinite;
+      }
+
+      .ticker span {
+        margin: 0 18px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.86rem;
+      }
+
+      @keyframes marquee {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      .shell {
+        margin-top: 12px;
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 12px;
+      }
+
+      .panel {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--paper);
+      }
+
+      .left {
+        position: sticky;
+        top: 12px;
+        align-self: start;
+        padding: 14px;
+      }
+
+      .name {
+        margin: 0;
+        font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+        line-height: 0.92;
+        text-transform: uppercase;
+      }
+
+      .identity {
+        margin: 10px 0;
+        color: var(--muted);
+        font-size: 0.93rem;
+      }
+
+      .menu {
+        margin: 14px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .menu li + li {
+        margin-top: 6px;
+      }
+
+      .menu a {
+        display: block;
+        padding: 8px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--ink);
+      }
+
+      .menu a:hover,
+      .menu a:focus-visible {
+        background: var(--blue);
+        color: #fff;
+        outline: none;
+      }
+
+      .right {
+        padding: 14px;
+      }
+
+      .hero {
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 4.5rem);
+        line-height: 0.9;
+        text-transform: uppercase;
+      }
+
+      .hero p {
+        max-width: 76ch;
+        margin: 12px 0 0;
+        color: var(--muted);
+      }
+
+      .tagline {
+        margin-top: 12px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .tag {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 4px 10px;
+        font-size: 0.82rem;
+      }
+
+      .butterfly {
+        position: absolute;
+        font-size: 1.2rem;
+        user-select: none;
+      }
+
+      .bf1 {
+        right: 8%;
+        top: 18%;
+        animation: flyA 7s ease-in-out infinite;
+      }
+
+      .bf2 {
+        right: 20%;
+        top: 50%;
+        animation: flyB 9s ease-in-out infinite;
+      }
+
+      .bf3 {
+        right: 12%;
+        top: 74%;
+        animation: flyC 8s ease-in-out infinite;
+      }
+
+      @keyframes flyA {
+        0%,
+        100% {
+          transform: translate(0, 0) rotate(0deg);
+        }
+        50% {
+          transform: translate(-26px, -20px) rotate(7deg);
+        }
+      }
+
+      @keyframes flyB {
+        0%,
+        100% {
+          transform: translate(0, 0) rotate(0deg);
+        }
+        50% {
+          transform: translate(18px, -30px) rotate(-8deg);
+        }
+      }
+
+      @keyframes flyC {
+        0%,
+        100% {
+          transform: translate(0, 0) rotate(0deg);
+        }
+        50% {
+          transform: translate(-10px, -24px) rotate(5deg);
+        }
+      }
+
+      .grid {
+        margin-top: 12px;
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 14px;
+      }
+
+      .c12 {
+        grid-column: span 12;
+      }
+
+      .c6 {
+        grid-column: span 6;
+      }
+
+      .c4 {
+        grid-column: span 4;
+      }
+
+      h2 {
+        margin: 0 0 10px;
+        font-size: 0.98rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .tile {
+        position: relative;
+        min-height: 140px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+        background:
+          linear-gradient(160deg, rgba(22, 62, 255, 0.15), transparent 40%),
+          repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.04) 0 4px, transparent 4px 8px),
+          var(--paper);
+      }
+
+      .tile .front,
+      .tile .back {
+        position: absolute;
+        inset: 0;
+        padding: 10px;
+        transition: opacity 0.25s ease;
+      }
+
+      .tile .back {
+        opacity: 0;
+        background: rgba(0, 0, 0, 0.86);
+        color: #fff;
+      }
+
+      .tile:hover .back,
+      .tile:focus-within .back {
+        opacity: 1;
+      }
+
+      .tile:hover .front,
+      .tile:focus-within .front {
+        opacity: 0.08;
+      }
+
+      .links a {
+        display: inline-block;
+        margin: 4px 8px 4px 0;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px 10px;
+        color: var(--ink);
+        text-decoration: none;
+      }
+
+      .links a:hover,
+      .links a:focus-visible {
+        background: var(--blue);
+        color: #fff;
+        outline: none;
+      }
+
+      footer {
+        margin: 14px 0 22px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 980px) {
+        .shell {
+          grid-template-columns: 1fr;
+        }
+
+        .left {
+          position: static;
+        }
+      }
+
+      @media (max-width: 760px) {
+        .c6,
+        .c4 {
+          grid-column: span 12;
+        }
+
+        .gallery {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .ticker,
+        .butterfly,
+        .tile .front,
+        .tile .back {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#main" class="skip">跳到主要內容</a>
+    <div class="layout">
+      <div class="bar" aria-hidden="true">
+        <div class="ticker">
+          <span>Field Notes</span><span>Visual Storytelling</span><span>Design x Place</span><span>Editorial Craft</span>
+          <span>Field Notes</span><span>Visual Storytelling</span><span>Design x Place</span><span>Editorial Craft</span>
+        </div>
+      </div>
+
+      <div class="shell">
+        <aside class="panel left" aria-label="側邊資訊">
+          <p class="name">YU<br />SHI-CHING</p>
+          <p class="identity">
+            國立陽明交通大學 百川學士學位學程（在學）<br />
+            設計 × 田野 × 內容敘事
+          </p>
+          <ul class="menu">
+            <li><a href="#about">About</a></li>
+            <li><a href="#work">Experience</a></li>
+            <li><a href="#project">Project</a></li>
+            <li><a href="#links">Links</a></li>
+          </ul>
+        </aside>
+
+        <main id="main" class="panel right">
+          <section class="hero" id="about">
+            <h1>尤時晴</h1>
+            <p>
+              我以「攝影、平面編輯、田野觀察與內容敘事」為核心能力，專注地方文化與常民記憶，將現場材料轉為可閱讀、可展示、可延伸使用的成果。
+            </p>
+            <div class="tagline">
+              <span class="tag">攝影紀錄</span>
+              <span class="tag">平面編輯</span>
+              <span class="tag">工作坊設計</span>
+              <span class="tag">地方創生</span>
+              <span class="tag">公共溝通</span>
+            </div>
+            <span class="butterfly bf1" aria-hidden="true">🦋</span>
+            <span class="butterfly bf2" aria-hidden="true">🦋</span>
+            <span class="butterfly bf3" aria-hidden="true">🦋</span>
+          </section>
+
+          <div class="grid" id="work">
+            <section class="card c4">
+              <h2>Identity</h2>
+              <p>國立臺中科技大學創意商品設計菁英班訓練背景，擅長跨領域整合與內容轉譯。</p>
+            </section>
+
+            <section class="card c4">
+              <h2>Methods</h2>
+              <ul>
+                <li>動線觀察、半結構訪談</li>
+                <li>議題對照分析（祭儀／市場／空間）</li>
+                <li>影像與文字並行敘事</li>
+              </ul>
+            </section>
+
+            <section class="card c4">
+              <h2>Awards</h2>
+              <ul>
+                <li>青年署暑期職場計畫：第一名</li>
+                <li>校內實習成果：最優獎</li>
+                <li>BCM：全國第二、全球第八</li>
+              </ul>
+            </section>
+
+            <section class="card c6">
+              <h2>Practical Experience</h2>
+              <p><strong>水源地文教基金會／太平藍</strong>（染織工藝研發製作員）</p>
+              <ul>
+                <li>社群知識內容與平面貼文設計</li>
+                <li>工作坊設計、備料與教學協作</li>
+                <li>弱勢家庭孩童課程合作教學</li>
+                <li>染物季產品開發、展品製作與修復</li>
+              </ul>
+            </section>
+
+            <section class="card c6" id="project">
+              <h2>Representative Project</h2>
+              <p>
+                <strong>黑潮電台｜糸滿—東港雙港聲景編輯計畫</strong><br />
+                以三時段觀察、訪談、影像聲景採集建立可持續地方敘事，輸出網站、小誌、社群連載、採集模板。
+              </p>
+            </section>
+
+            <section class="card c12" aria-label="作品預覽">
+              <h2>Visual Preview</h2>
+              <div class="gallery">
+                <article class="tile">
+                  <div class="front">FIELD NOTE 01<br />港口動線 / 日常觀察</div>
+                  <div class="back">可替換為你的攝影作品縮圖與說明文字。</div>
+                </article>
+                <article class="tile">
+                  <div class="front">FIELD NOTE 02<br />市場聲景 / 口述資料</div>
+                  <div class="back">可替換為平面編輯專案封面與摘要。</div>
+                </article>
+                <article class="tile">
+                  <div class="front">FIELD NOTE 03<br />祭儀脈絡 / 影像採集</div>
+                  <div class="back">可替換為工作坊或展演紀錄素材。</div>
+                </article>
+              </div>
+            </section>
+
+            <section class="card c12 links" id="links">
+              <h2>Selected Links</h2>
+              <a href="https://drive.google.com/drive/folders/1Uy4TteQ8qBth02g7jGGyVQiErnKq8nJ6?usp=sharing" target="_blank" rel="noopener noreferrer">作品集</a>
+              <a href="https://www.threads.net/@leftear_lee2" target="_blank" rel="noopener noreferrer">Threads</a>
+              <a href="https://www.instagram.com/weathertwins_official?igsh=b2tpNHo5azVreWhh" target="_blank" rel="noopener noreferrer">Instagram</a>
+              <a href="https://www.figma.com/proto/CiKtwTDMCIyqAGwZaNIiP8/Untitled?node-id=0-1" target="_blank" rel="noopener noreferrer">Figma</a>
+            </section>
+          </div>
+        </main>
+      </div>
+
+      <footer>
+        v2 built for GitHub Pages · semantic HTML · reduced-motion ready · no build step
+      </footer>
+    </div>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "尤時晴",
+        "alternateName": "YU, SHI-CHING",
+        "knowsAbout": ["Photography", "Graphic Design", "Field Research", "Local Culture Storytelling"],
+        "sameAs": [
+          "https://www.threads.net/@leftear_lee2",
+          "https://www.instagram.com/weathertwins_official?igsh=b2tpNHo5azVreWhh"
+        ]
+      }
+    </script>
+  </body>
+</html>
