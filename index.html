@@ -9,26 +9,39 @@
     <meta property="og:title" content="尤時晴 | Field Notes Portfolio v2" />
     <meta property="og:description" content="復古實驗感個人網站：田野、設計、影像與內容敘事。" />
     <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
     <style>
       :root {
-        --bg: #f4f3ef;
-        --ink: #121212;
+        --bg: #ffffff;
+        --ink: #000000;
         --paper: #ffffff;
-        --line: #151515;
-        --muted: #666;
-        --blue: #163eff;
+        --line: #000000;
+        --muted: #2c2c2c;
+        --red: #ff0000;
+        --yellow: #ffdc35;
+        --blue: #2828ff;
+        --green: #00ec00;
         --max: 1280px;
         --mono: "IBM Plex Mono", "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+        --retro: "Noto Serif TC", serif;
       }
 
       @media (prefers-color-scheme: dark) {
         :root {
-          --bg: #0e0e11;
-          --ink: #f2f2f2;
-          --paper: #18181c;
+          --bg: #000000;
+          --ink: #ffffff;
+          --paper: #111111;
           --line: #ececec;
-          --muted: #b4b4b4;
-          --blue: #8ca0ff;
+          --muted: #d2d2d2;
+          --red: #ff5757;
+          --yellow: #ffd000;
+          --blue: #8a8aff;
+          --green: #6bff6b;
         }
       }
 
@@ -78,7 +91,7 @@
       }
 
       .bar {
-        border: 1px solid var(--line);
+        border: 2px solid var(--line);
         background: var(--paper);
         border-radius: 8px;
         overflow: hidden;
@@ -97,6 +110,7 @@
         text-transform: uppercase;
         letter-spacing: 0.08em;
         font-size: 0.86rem;
+        color: var(--blue);
       }
 
       @keyframes marquee {
@@ -116,7 +130,7 @@
       }
 
       .panel {
-        border: 1px solid var(--line);
+        border: 2px solid var(--line);
         border-radius: 10px;
         background: var(--paper);
       }
@@ -132,7 +146,21 @@
         margin: 0;
         font-size: clamp(1.6rem, 2.5vw, 2.4rem);
         line-height: 0.92;
-        text-transform: uppercase;
+        font-family: var(--retro);
+      }
+
+      .name-ruby {
+        margin: 8px 0 0;
+        color: var(--red);
+        font-size: 0.96rem;
+        font-weight: 600;
+      }
+
+      .name-en {
+        margin: 6px 0 0;
+        color: var(--blue);
+        font-weight: 600;
+        letter-spacing: 0.08em;
       }
 
       .identity {
@@ -154,7 +182,7 @@
       .menu a {
         display: block;
         padding: 8px;
-        border: 1px solid var(--line);
+        border: 2px solid var(--line);
         border-radius: 8px;
         text-decoration: none;
         color: var(--ink);
@@ -162,28 +190,37 @@
 
       .menu a:hover,
       .menu a:focus-visible {
-        background: var(--blue);
-        color: #fff;
+        background: var(--yellow);
+        color: var(--ink);
         outline: none;
       }
 
+      @media (prefers-color-scheme: dark) {
+        .menu a:hover,
+        .menu a:focus-visible {
+          color: #111;
+        }
+      }
       .right {
         padding: 14px;
       }
 
       .hero {
         padding: 18px;
-        border: 1px solid var(--line);
+        border: 2px solid var(--line);
         border-radius: 10px;
         position: relative;
         overflow: hidden;
+        background:
+          linear-gradient(150deg, color-mix(in srgb, var(--yellow) 35%, transparent), transparent 45%),
+          var(--paper);
       }
 
       .hero h1 {
         margin: 0;
         font-size: clamp(2rem, 4vw, 4.5rem);
         line-height: 0.9;
-        text-transform: uppercase;
+        font-family: var(--retro);
       }
 
       .hero p {
@@ -200,63 +237,59 @@
       }
 
       .tag {
-        border: 1px solid var(--line);
+        border: 2px solid var(--line);
         border-radius: 999px;
         padding: 4px 10px;
         font-size: 0.82rem;
+        background: var(--paper);
       }
 
-      .butterfly {
+      .star-mark {
         position: absolute;
-        font-size: 1.2rem;
+        right: 10px;
+        top: 8px;
+        font-size: 1.4rem;
+        color: var(--red);
+      }
+
+      .deco {
+        position: absolute;
+        z-index: 2;
+        width: 150px;
+        max-width: 22vw;
+        pointer-events: none;
         user-select: none;
       }
 
-      .bf1 {
-        right: 8%;
-        top: 18%;
-        animation: flyA 7s ease-in-out infinite;
+      .deco-left {
+        left: 12px;
+        bottom: 12px;
+        animation: floatLeft 7s ease-in-out infinite;
       }
 
-      .bf2 {
-        right: 20%;
-        top: 50%;
-        animation: flyB 9s ease-in-out infinite;
+      .deco-right {
+        right: 18px;
+        top: 36px;
+        animation: floatRight 8s ease-in-out infinite;
       }
 
-      .bf3 {
-        right: 12%;
-        top: 74%;
-        animation: flyC 8s ease-in-out infinite;
-      }
-
-      @keyframes flyA {
+      @keyframes floatLeft {
         0%,
         100% {
-          transform: translate(0, 0) rotate(0deg);
+          transform: translate(0, 0) rotate(0deg) scale(1);
         }
         50% {
-          transform: translate(-26px, -20px) rotate(7deg);
+          transform: translate(8px, -10px) rotate(-3deg) scale(1.03);
         }
       }
 
-      @keyframes flyB {
+      @keyframes floatRight {
         0%,
         100% {
-          transform: translate(0, 0) rotate(0deg);
+          transform: translate(0, 0) rotate(0deg) scale(1);
         }
         50% {
-          transform: translate(18px, -30px) rotate(-8deg);
-        }
-      }
-
-      @keyframes flyC {
-        0%,
-        100% {
-          transform: translate(0, 0) rotate(0deg);
-        }
-        50% {
-          transform: translate(-10px, -24px) rotate(5deg);
+          transform: translate(-8px, 10px) rotate(4deg) scale(1.03);
         }
       }
 
@@ -268,7 +301,7 @@
       }
 
       .card {
-        border: 1px solid var(--line);
+        border: 2px solid var(--line);
         border-radius: 10px;
         padding: 14px;
       }
@@ -290,6 +323,7 @@
         font-size: 0.98rem;
         letter-spacing: 0.06em;
         text-transform: uppercase;
+        color: var(--blue);
       }
 
       .gallery {
@@ -301,11 +335,11 @@
       .tile {
         position: relative;
         min-height: 140px;
-        border: 1px solid var(--line);
+        border: 2px solid var(--line);
         border-radius: 8px;
         overflow: hidden;
         background:
-          linear-gradient(160deg, rgba(22, 62, 255, 0.15), transparent 40%),
+          linear-gradient(160deg, color-mix(in srgb, var(--blue) 20%, transparent), transparent 40%),
           repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.04) 0 4px, transparent 4px 8px),
           var(--paper);
       }
@@ -337,7 +371,7 @@
       .links a {
         display: inline-block;
         margin: 4px 8px 4px 0;
-        border: 1px solid var(--line);
+        border: 2px solid var(--line);
         border-radius: 999px;
         padding: 5px 10px;
         color: var(--ink);
@@ -346,8 +380,8 @@
 
       .links a:hover,
       .links a:focus-visible {
-        background: var(--blue);
-        color: #fff;
+        background: var(--green);
+        color: #000;
         outline: none;
       }
 
@@ -381,7 +415,7 @@
 
       @media (prefers-reduced-motion: reduce) {
         .ticker,
-        .butterfly,
+        .deco,
         .tile .front,
         .tile .back {
           animation: none !important;
@@ -402,7 +436,9 @@
 
       <div class="shell">
         <aside class="panel left" aria-label="側邊資訊">
-          <p class="name">YU<br />SHI-CHING</p>
+          <p class="name">尤時晴</p>
+          <p class="name-ruby">ㄧㄡˊ ㄕˊ ㄑㄧㄥˊ</p>
+          <p class="name-en">SUNNY YO</p>
           <p class="identity">
             國立陽明交通大學 百川學士學位學程（在學）<br />
             設計 × 田野 × 內容敘事
@@ -428,9 +464,27 @@
               <span class="tag">地方創生</span>
               <span class="tag">公共溝通</span>
             </div>
-            <span class="butterfly bf1" aria-hidden="true">🦋</span>
-            <span class="butterfly bf2" aria-hidden="true">🦋</span>
-            <span class="butterfly bf3" aria-hidden="true">🦋</span>
+            <span class="star-mark" aria-hidden="true">★</span>
+            <img
+              class="deco deco-left"
+              src="./耳機-左(英文字).png"
+              alt=""
+              aria-hidden="true"
+              width="800"
+              height="800"
+              loading="lazy"
+              decoding="async"
+            />
+            <img
+              class="deco deco-right"
+              src="./耳機-右(注音+星星).png"
+              alt=""
+              aria-hidden="true"
+              width="800"
+              height="800"
+              loading="lazy"
+              decoding="async"
+            />
           </section>
 
           <div class="grid" id="work">
